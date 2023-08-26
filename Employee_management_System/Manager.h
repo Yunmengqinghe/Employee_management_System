@@ -1,10 +1,11 @@
 #pragma once
-#include "EmployeeBase.h"
-class Manager :public EmployeeBase
+#include "Worker.h"
+
+class Manager:public Worker
 {
-public:
-	Manager(string number, string name, string postnumber);
+	Manager(int id, string name, int postNum);
 	~Manager();
-	virtual void Duty();
+	void ShowInfo();
+	string GetPostName();
 };
 

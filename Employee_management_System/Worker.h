@@ -6,5 +6,11 @@ using namespace std;
 class Worker
 {
 public:
+	virtual void ShowInfo() = 0;
+	virtual string GetPostName() = 0;
+	
+	int id;
+	string name;
+	int postNum;
 };
 

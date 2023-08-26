@@ -1,32 +1,24 @@
 #include "Manager.h"
 
-Manager::Manager(string number, string name, string postnumber)
+Manager::Manager(int id, string name, int postNum)
 {
-	this->number = new string(number);
-	this->name = new string(name);
-	this->postnumber = new string(postnumber);
+	this->id = id;
+	this->name = name;
+	this->postNum = postNum;
 }
 
 Manager::~Manager()
 {
-	if (number != NULL)
-	{
-		delete number;
-		number = NULL;
-	}
-	if (name != NULL)
-	{
-		delete name;
-		name = NULL;
-	}
-	if (postnumber != NULL)
-	{
-		delete postnumber;
-		postnumber = NULL;
-	}
 }
 
-void Manager::Duty()
+void Manager::ShowInfo()
 {
-	cout << "听老板的" << endl;
+	cout << "  " << id;
+	cout << "    " << name;
+	cout << "    " << postNum << endl;
+}
+
+string Manager::GetPostName()
+{
+	return string("经理");
 }

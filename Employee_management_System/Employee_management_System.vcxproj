@@ -127,18 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Employee.cpp" />
-    <ClCompile Include="EmployeeBase.cpp" />
-    <ClCompile Include="Employer.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Worker.cpp" />
     <ClCompile Include="WorkManager.cpp" />
     <ClCompile Include="WorkSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Employee.h" />
-    <ClInclude Include="EmployeeBase.h" />
-    <ClInclude Include="Employer.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Worker.h" />
     <ClInclude Include="WorkManager.h" />

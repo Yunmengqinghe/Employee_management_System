@@ -1,32 +1,24 @@
 #include "Employee.h"
 
-Employee::Employee(string number, string name, string postnumber)
+Employee::Employee(int id, string name, int postNum)
 {
-	this->number = new string(number);
-	this->name = new string(name);
-	this->postnumber = new string(postnumber);
+	this->id = id;
+	this->name = name;
+	this->postNum = postNum;
 }
 
 Employee::~Employee()
 {
-	if (number != NULL)
-	{
-		delete number;
-		number = NULL;
-	}
-	if (name != NULL)
-	{
-		delete name;
-		name = NULL;
-	}
-	if (postnumber != NULL)
-	{
-		delete postnumber;
-		postnumber = NULL;
-	}
 }
 
-void Employee::Duty()
+void Employee::ShowInfo()
 {
-	cout << "听经理的话" << endl;
+	cout << "  " << id;
+	cout << "    " << name;
+	cout << "    " << postNum << endl;
+}
+
+string Employee::GetPostName()
+{
+	return string("员工");
 }
