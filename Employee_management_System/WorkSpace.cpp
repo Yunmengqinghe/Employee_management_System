@@ -1,8 +1,6 @@
 #include <iostream>
 #include <list>
-#include "EmployeeBase.h"
 #include "Employee.h"
-#include "Employer.h"
 #include "Manager.h"
 #include "WorkManager.h"
 
@@ -10,6 +8,7 @@
 int main()
 {
 	WorkManager method;
+	Worker** worker = new Worker * [10];
 	char select;
 	while (true)
 	{

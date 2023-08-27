@@ -1,8 +1,10 @@
 #include "WorkManager.h"
 
+
 WorkManager::WorkManager()
 {
-
+	hasNum = 0;
+	worker = NULL;
 }
 
 WorkManager::~WorkManager()
@@ -26,13 +28,25 @@ void WorkManager::ShowMeun()
 	cout << endl;
 }
 
+void WorkManager::AddWorker()
+{
+	int addNum;
+	cin >> addNum;
+	if (addNum > 0)
+	{
+		worker = new Worker * [hasNum + addNum];
+	}
+
+}
+
+
+
 void WorkManager::ExitSystem()
 {
 	cout << "³É¹¦ÍË³ö!" << endl;
 	system("pause");
 	exit(0);
 }
-
 
 void WorkManager::FlushMeun()
 {
