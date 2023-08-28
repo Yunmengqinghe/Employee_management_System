@@ -4,12 +4,15 @@
 WorkManager::WorkManager()
 {
 	hasNum = 0;
-	worker = NULL;
+	workerArray = NULL;
 }
 
 WorkManager::~WorkManager()
 {
-
+	if (this->workerArray != NULL)
+	{
+		delete[] workerArray;
+	}
 }
 
 void WorkManager::ShowMeun()
@@ -30,16 +33,136 @@ void WorkManager::ShowMeun()
 
 void WorkManager::AddWorker()
 {
+	cout << "请输入要添加的员工个数:";
 	int addNum;
 	cin >> addNum;
 	if (addNum > 0)
 	{
-		worker = new Worker * [hasNum + addNum];
-	}
+		int newSize = this->hasNum + addNum;
+		Worker** newArray = new Worker * [newSize];
+		if (this->workerArray != NULL)
+		{
+			for (int i = 0; i < this->hasNum; i++)
+			{
+				newArray[i] = workerArray[i];
+			}
 
+			for (int i = 0; i < addNum; i++)
+			{
+				int tempNum;
+				string tempName;
+				int tempPostNum;
+				cout << "请输入第" << i + 1 << "位员工的职工号:";
+				cin >> tempNum;
+				cout << "请输入第" << i + 1 << "位员工的姓名:";
+				cin >> tempName;
+
+				cout << "****** 员工职位表 ******" << endl;
+				cout << "******* 1.员工 *******" << endl;
+				cout << "******* 2.经理 *******" << endl;
+				cout << "******* 3.老板 *******" << endl;
+				cout << "请选择员工职位:";
+				cin >> tempPostNum;
+				Worker* worker;
+				switch (tempPostNum)
+				{
+				case 1:
+					worker = new Employee(tempNum, tempName, tempPostNum);
+					break;
+				case 2:
+					worker = new Manager(tempNum, tempName, tempPostNum);
+					break;
+				case 3:
+					worker = new Boss(tempNum, tempName, tempPostNum);
+					break;
+				default:
+					worker = NULL;
+					break;
+				}
+				newArray[this->hasNum + i] = worker;
+			}
+			this->hasNum = newSize;
+			delete[] this->workerArray;
+			this->workerArray = newArray;
+		}
+		else
+		{
+			this->workerArray = new Worker * [addNum];
+			for (int i = 0; i < addNum; i++)
+			{
+				int tempNum;
+				string tempName;
+				int tempPostNum;
+
+				cout << "请输入第" << i + 1 << "位员工的职工号:";
+				cin >> tempNum;
+				cout << endl;
+				cout << "请输入第" << i + 1 << "位员工的姓名:";
+				cin >> tempName;
+				cout << endl;
+
+				cout << "****** 员工职位表 ******" << endl;
+				cout << "******* 1.员工 *******" << endl;
+				cout << "******* 2.经理 *******" << endl;
+				cout << "******* 3.老板 *******" << endl;
+				cout << "请选择员工职位:";
+				cin >> tempPostNum;
+				cout << endl;
+
+				Worker* worker;
+				switch (tempPostNum)
+				{
+				case 1:
+					worker = new Employee(tempNum, tempName, tempPostNum);
+					break;
+				case 2:
+					worker = new Manager(tempNum, tempName, tempPostNum);
+					break;
+				case 3:
+					worker = new Boss(tempNum, tempName, tempPostNum);
+					break;
+				default:
+					worker = NULL;
+					break;
+				}
+				this->workerArray[i] = worker;
+			}
+			this->hasNum = addNum;
+		}
+	}
 }
 
+void WorkManager::ShowWorker()
+{
+	cout << "职工号" << "  姓名" << "  职位编号" << endl;
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		cout << *this->workerArray[i];
+	}
+}
 
+void WorkManager::WriteIntoFile()
+{
+	ofstream ofs;
+	ofs.open(FILENAME, ios::out);
+	if (!ofs)
+	{
+		cout << "no" << endl;
+		return;
+	}
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		ofs << this->workerArray[i]->id << " " << this->workerArray[i]->name << " ";
+		ofs << this->workerArray[i]->postNum << endl;
+	}
+	ofs.close();
+}
+
+void WorkManager::ReadFormFile()
+{
+	ifstream ifs(FILENAME, ios::in);
+
+}
 
 void WorkManager::ExitSystem()
 {

@@ -13,9 +13,7 @@ Employee::~Employee()
 
 void Employee::ShowInfo()
 {
-	cout << "  " << id;
-	cout << "    " << name;
-	cout << "    " << postNum << endl;
+	cout << *this;
 }
 
 string Employee::GetPostName()

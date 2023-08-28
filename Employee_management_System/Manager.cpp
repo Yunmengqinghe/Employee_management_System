@@ -13,9 +13,7 @@ Manager::~Manager()
 
 void Manager::ShowInfo()
 {
-	cout << "  " << id;
-	cout << "    " << name;
-	cout << "    " << postNum << endl;
+	cout << *this;
 }
 
 string Manager::GetPostName()

@@ -5,6 +5,7 @@ using namespace std;
 
 class Worker
 {
+	friend ostream& operator<<(ostream& out,const Worker& Worker);
 public:
 	virtual void ShowInfo() = 0;
 	virtual string GetPostName() = 0;
@@ -14,3 +15,4 @@ public:
 	int postNum;
 };
 
+ostream& operator<<(ostream& out,const Worker& worker);

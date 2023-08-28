@@ -13,9 +13,7 @@ Boss::~Boss()
 
 void Boss::ShowInfo()
 {
-	cout << "  " << id;
-	cout << "    " << name;
-	cout << "    " << postNum << endl;
+	cout << *this;
 }
 
 string Boss::GetPostName()

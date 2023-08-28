@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
-#include <ostream>
+#include <fstream>
 using namespace std;
+#include <iterator>
 #include "Worker.h"
 #include "Employee.h"
 #include "Manager.h"
@@ -25,10 +26,14 @@ public:
 	 */
 	void ShowMeun();
 	void AddWorker();
+	void ShowWorker();
+	void WriteIntoFile();
+	void ReadFormFile();
 	void ExitSystem();
 	void FlushMeun();
 
 	int hasNum;
-	Worker** worker;
+	Worker** workerArray;
+	const string FILENAME = "storeFile.txt";
 };
 

@@ -8,7 +8,6 @@
 int main()
 {
 	WorkManager method;
-	Worker** worker = new Worker * [10];
 	char select;
 	while (true)
 	{
@@ -29,7 +28,7 @@ int main()
 		 * 5.查找职工信息
 		 * 6.按照编号排序
 		 * 7.清空所有文档
-		 *
+		 * 
 		 */
 
 		switch (select)
@@ -38,9 +37,12 @@ int main()
 			method.ExitSystem();
 			break;
 		case '1':
+			method.AddWorker();
 			break;
-
 		case '2':
+			method.ShowWorker();
+			method.WriteIntoFile();
+			system("pause");
 			break;
 		case '3':
 			break;
@@ -53,11 +55,11 @@ int main()
 		case '7':
 			break;
 		default:
+			cout << "调用default" << endl;
 			method.FlushMeun();
 			break;
 		}
 	}
-
 	system("pause");
 	return 0;
 }
