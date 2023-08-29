@@ -38,13 +38,15 @@ int main()
 			break;
 		case '1':
 			method.AddWorker();
+			method.WriteIntoFile();
 			break;
 		case '2':
 			method.ShowWorker();
-			method.WriteIntoFile();
 			system("pause");
 			break;
 		case '3':
+			method.DeleteWorker();
+			method.WriteIntoFile();
 			break;
 		case '4':
 			break;

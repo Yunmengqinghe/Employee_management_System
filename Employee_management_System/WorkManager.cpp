@@ -1,10 +1,32 @@
 #include "WorkManager.h"
 
-
 WorkManager::WorkManager()
 {
-	hasNum = 0;
-	workerArray = NULL;
+	ifstream ifs(FILENAME, ios::in);
+	if (!ifs.is_open())
+	{
+		this->hasNum = 0;
+		this->workerArray = NULL;
+		this->isFileEmpty = true;
+		ifs.close();
+		return;
+	}
+
+	char ch;
+	ifs >> ch;
+	if (ifs.eof())
+	{
+		this->hasNum = 0;
+		this->workerArray = NULL;
+		this->isFileEmpty = true;
+		ifs.close();
+		return;
+	}
+	
+	this->isFileEmpty = false;
+	this->hasNum = this->GetWorkerNum();
+	this->ReadFormFile();
+
 }
 
 WorkManager::~WorkManager()
@@ -54,8 +76,10 @@ void WorkManager::AddWorker()
 				int tempPostNum;
 				cout << "请输入第" << i + 1 << "位员工的职工号:";
 				cin >> tempNum;
+				cout << endl;
 				cout << "请输入第" << i + 1 << "位员工的姓名:";
 				cin >> tempName;
+				cout << endl;
 
 				cout << "****** 员工职位表 ******" << endl;
 				cout << "******* 1.员工 *******" << endl;
@@ -63,6 +87,8 @@ void WorkManager::AddWorker()
 				cout << "******* 3.老板 *******" << endl;
 				cout << "请选择员工职位:";
 				cin >> tempPostNum;
+				cout << endl;
+
 				Worker* worker;
 				switch (tempPostNum)
 				{
@@ -129,6 +155,7 @@ void WorkManager::AddWorker()
 			}
 			this->hasNum = addNum;
 		}
+		this->isFileEmpty = false;
 	}
 }
 
@@ -158,10 +185,118 @@ void WorkManager::WriteIntoFile()
 	ofs.close();
 }
 
-void WorkManager::ReadFormFile()
+int WorkManager::GetWorkerNum()
 {
 	ifstream ifs(FILENAME, ios::in);
+	int tempNum, tempPostNum;
+	string tempName;
+	int num = 0;
+	while (ifs >> tempNum && ifs >> tempName && ifs >> tempPostNum)
+	{
+		num++;
+	}
+	return num;
+}
 
+void WorkManager::ReadFormFile()
+{
+	this->workerArray = new Worker * [this->hasNum];
+	ifstream ifs(FILENAME, ios::in);
+	int tempNum, tempPostNum;
+	string tempName;
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		ifs >> tempNum; 
+		ifs >> tempName; 
+		ifs >> tempPostNum;
+		Worker* worker;
+		switch (tempPostNum)
+		{
+		case 1:
+			worker = new Employee(tempNum, tempName, tempPostNum);
+			break;
+		case 2:
+			worker = new Manager(tempNum, tempName, tempPostNum);
+			break;
+		case 3:
+			worker = new Boss(tempNum, tempName, tempPostNum);
+			break;
+		default:
+			worker = NULL;
+			break;
+		}
+		this->workerArray[i] = worker;
+	}
+}
+
+int WorkManager::FindWorker(int num)
+{
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		if (this->workerArray[i]->id == num)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+int WorkManager::FindWorker(string name)
+{
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		if (this->workerArray[i]->name == name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void WorkManager::DeleteWorker()
+{
+	int select;
+	int subscript;
+
+	cout << endl;
+	cout << "******* 删除方式 *******" << endl;
+	cout << "******* 1.职工号 *******" << endl;
+	cout << "******* 2.姓名   *******" << endl;
+	cout << "请选择删除方式:";
+	cin >> select;
+
+	if (select == 1)
+	{
+		int tempNum;
+		cout << "请输入职工号:";
+		cin >> tempNum;
+		subscript = this->FindWorker(tempNum);
+	}
+	else if (select == 2)
+	{
+		string tempName;
+		cout << "请输入职工姓名:";
+		cin >> tempName;
+		subscript = this->FindWorker(tempName);
+	}
+	else
+	{
+		return;
+	}
+
+	Worker** newArray = new Worker * [this->hasNum - 1];
+	int rec_subscript = 0;
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		if (i != subscript)
+		{
+			newArray[rec_subscript] = this->workerArray[i];
+			rec_subscript++;
+		}
+	}
+	this->hasNum -= 1;
+	delete[] this->workerArray;
+	this->workerArray = newArray;
 }
 
 void WorkManager::ExitSystem()

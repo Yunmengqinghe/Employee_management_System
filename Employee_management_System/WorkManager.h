@@ -27,13 +27,21 @@ public:
 	void ShowMeun();
 	void AddWorker();
 	void ShowWorker();
+
 	void WriteIntoFile();
+	int GetWorkerNum(); 
 	void ReadFormFile();
+
+	int FindWorker(int num);
+	int FindWorker(string name);
+	void DeleteWorker();
+
 	void ExitSystem();
 	void FlushMeun();
 
 	int hasNum;
 	Worker** workerArray;
+	bool isFileEmpty;
 	const string FILENAME = "storeFile.txt";
 };
 
