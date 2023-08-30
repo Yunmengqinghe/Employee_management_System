@@ -4,7 +4,6 @@
 #include "Manager.h"
 #include "WorkManager.h"
 
-
 int main()
 {
 	WorkManager method;
@@ -42,19 +41,24 @@ int main()
 			break;
 		case '2':
 			method.ShowWorker();
-			system("pause");
 			break;
 		case '3':
 			method.DeleteWorker();
 			method.WriteIntoFile();
 			break;
 		case '4':
+			method.ChangeWorker();
+			method.WriteIntoFile();
 			break;
 		case '5':
+			method.FindWorker(0);
 			break;
 		case '6':
+			method.SortWorkerArray();
+			method.WriteIntoFile();
 			break;
 		case '7':
+			method.EmptyAllFile();
 			break;
 		default:
 			cout << "µ÷ÓÃdefault" << endl;

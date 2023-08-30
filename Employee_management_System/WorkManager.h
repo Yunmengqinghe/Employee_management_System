@@ -32,10 +32,15 @@ public:
 	int GetWorkerNum(); 
 	void ReadFormFile();
 
-	int FindWorker(int num);
-	int FindWorker(string name);
-	void DeleteWorker();
 
+	int FindWorker();
+	void FindWorker(int);
+
+	void DeleteWorker();
+	void ChangeWorker();
+	void SortWorkerArray();
+
+	void EmptyAllFile();
 	void ExitSystem();
 	void FlushMeun();
 
