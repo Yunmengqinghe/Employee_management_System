@@ -5,6 +5,7 @@ Manager::Manager(int id, string name, int postNum)
 	this->id = id;
 	this->name = name;
 	this->postNum = postNum;
+	this->isDepart = false;
 }
 
 Manager::~Manager()

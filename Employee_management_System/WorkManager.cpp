@@ -167,7 +167,7 @@ void WorkManager::ShowWorker()
 		system("pause");
 		return;
 	}
-	cout << "职工号" << "  姓名" << "  职位编号" << endl;
+	cout << "职工号\t姓名\t职编\t离职" << endl;
 	for (int i = 0; i < this->hasNum; i++)
 	{
 		cout << *this->workerArray[i];
@@ -294,18 +294,26 @@ void WorkManager::FindWorker(int)
 
 void WorkManager::DeleteWorker()
 {
-	int subscript = FindWorker();
-	Worker** newArray = new Worker * [this->hasNum - 1];
-	int rec_subscript = 0;
+	int deleteNum = 0;
 	for (int i = 0; i < this->hasNum; i++)
 	{
-		if (i != subscript)
+		if (this->workerArray[i]->isDepart == true)
 		{
-			newArray[rec_subscript] = this->workerArray[i];
-			rec_subscript++;
+			deleteNum++;
 		}
 	}
-	this->hasNum -= 1;
+
+	Worker** newArray = new Worker * [this->hasNum -deleteNum];
+	int subscript = 0;
+	for (int i = 0; i < this->hasNum; i++)
+	{
+		if (this->workerArray[i]->isDepart!=true)
+		{
+			newArray[subscript] = this->workerArray[i];
+			subscript++;
+		}
+	}
+	this->hasNum -= deleteNum;
 	delete[] this->workerArray;
 	this->workerArray = newArray;
 }
@@ -318,6 +326,7 @@ void WorkManager::ChangeWorker()
 	cout << "**** 修改项目 ****" << endl;
 	cout << "**** 1.职工号 ****" << endl;
 	cout << "**** 2.姓名 ****" << endl;
+	cout << "**** 3.状态 ****" << endl;
 	cout << "请选择你的项目:" << endl;
 	cin >> select;
 	cout << endl;
@@ -335,6 +344,27 @@ void WorkManager::ChangeWorker()
 		cout << "请输入姓名:";
 		cin >> tempName;
 		this->workerArray[subscript]->name = tempName;
+	}
+	else if (select == 3)
+	{
+		int newselect;
+		cout << "*** 员工状态: ***" << endl;
+		cout << "**** 1.在职 ****" << endl;
+		cout << "**** 2.离职 ****" << endl;
+		cout << "请选择状态:";
+		cin >> newselect;
+		if (newselect == 1)
+		{
+			this->workerArray[subscript]->isDepart = false;
+		}
+		else
+		{
+			this->workerArray[subscript]->isDepart = true;
+		}
+	}
+	else
+	{
+		return;
 	}
 }
 

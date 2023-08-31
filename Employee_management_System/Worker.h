@@ -13,6 +13,7 @@ public:
 	int id;
 	string name;
 	int postNum;
+	bool isDepart;
 };
 
 ostream& operator<<(ostream& out,const Worker& worker);

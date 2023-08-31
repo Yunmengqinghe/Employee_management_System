@@ -2,8 +2,8 @@
 
 ostream& operator<<(ostream& out, const Worker& worker)
 {
-	cout << "  " << worker.id;
-	cout << "     " << worker.name;
-	cout << "     " << worker.postNum << endl;
+	cout << boolalpha;
+	cout << "  " << worker.id << "\t" << worker.name;
+	cout << "\t" << worker.postNum << "\t" << worker.isDepart << endl;
 	return out;
 }
